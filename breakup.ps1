@@ -1,0 +1,1 @@
+magick convert .\Fx7.png -crop 30x30 .\FX7\fx7_%d.png

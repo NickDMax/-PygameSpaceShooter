@@ -1,0 +1,53 @@
+{
+    "player": {
+        "ShipFly": [
+            "resources/Ship/CustomShip2.png",
+            "resources/Ship/CustomShip3.png"
+        ]
+    },
+    "level1": {
+        "backgrounds": [
+            "resources/Background/1.png",
+            "resources/Background/2.png",
+            "resources/Background/3.png",
+            "resources/Background/4.png",
+            "resources/Background/5.png",
+            "resources/Background/5.png",
+            "resources/Background/4.png"
+        ],
+        "stars": [
+            "resources/Background/stars.png"
+        ],
+        "meteorshower": [
+            "resources/Background/Meteor1.png",
+            "resources/Background/Meteor1.png",
+            "resources/Background/Meteor1.png",
+            "resources/Background/Meteor2.png",
+            "resources/Background/Meteor2.png",
+            "resources/Background/Meteor2.png"
+
+        ],
+        "Enemies": {
+            "Boss": ["resources/Ship/1.png"]
+        }
+    },
+    "actions": {
+        "ShipHit": [
+            "resources/Fx/FX3/fx3_0.png",
+            "resources/Fx/FX3/fx3_1.png",
+            "resources/Fx/FX3/fx3_2.png",
+            "resources/Fx/FX3/fx3_3.png"
+        ],
+        "ShipExplode" : [
+            "resources/Fx/FX7/fx7_0.png",
+            "resources/Fx/FX7/fx7_1.png",
+            "resources/Fx/FX7/fx7_2.png",
+            "resources/Fx/FX7/fx7_3.png",
+            "resources/Fx/FX7/fx7_4.png",
+            "resources/Fx/FX7/fx7_5.png",
+            "resources/Fx/FX7/fx7_6.png",
+            "resources/Fx/FX7/fx7_7.png"
+        ]
+    }
+
+}
