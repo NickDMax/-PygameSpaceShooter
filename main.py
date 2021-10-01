@@ -1,41 +1,39 @@
 from ActiveEntity import ActiveEnity
 from Entity import Entity
-import os
 import time
 import random
-import pygame
 from pygame.math import Vector2
-from GameState import Point,GameState
+import pygame
+from GameState import Point, GameState
 from Background import Background
 from MeteorShower import MeteorShower
-from Ship import Ship
 from Layer import Layer
 import math
-import code
 import json
 
 
 random.seed(time.time)
 
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-RED = (255,0,0)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-BLUE = (0,0,255)
+BLUE = (0, 0, 255)
 
 DIR_RIGHT = math.pi/2
 DIR_UP = 0
 DIR_LEFT = math.pi
-DIR_DOWN = 0.75 *  math.pi
+DIR_DOWN = 0.75 * math.pi
 
 VEC_RIGHT = Vector2(1, 0)
 VEC_UP = Vector2(0, -1)
 VEC_LEFT = Vector2(-1, 0)
 VEC_DOWN = Vector2(0, 1)
 
+
 def getGameData(datafile: str):
     try:
-        f = open('gamedata.json',)
+        f = open(datafile,)
         data = json.load(f)
     finally:
         f.close()
@@ -43,56 +41,55 @@ def getGameData(datafile: str):
 
 
 def handleEvents():
-    global game
     for event in pygame.event.get():
-        #print(pygame.event.event_name(event.type))
+        # print(pygame.event.event_name(event.type))
         if event.type == pygame.QUIT or \
             event.type == pygame.KEYDOWN and \
-            ((event.key == pygame.K_q and event.mod & pygame.KMOD_ALT) or \
-            (event.key == pygame.K_ESCAPE)):
-            
-            print("!!QUIT!!")
+            ((event.key == pygame.K_q and event.mod & pygame.KMOD_ALT) or
+             (event.key == pygame.K_ESCAPE)):
+
+            print('!!QUIT!!')
             return False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-            #if event.mod & pygame.KMOD_LCTRL:
+            # if event.mod & pygame.KMOD_LCTRL:
             #    player.vector = player.vector + 2 * VEC_LEFT
-            #else:
+            # else:
             player.vector = player.vector + 1 * VEC_LEFT
         if event.type == pygame.KEYUP and event.key == pygame.K_a:
-            player.vector = player.vector - 1 * VEC_LEFT               
-        
+            player.vector = player.vector - 1 * VEC_LEFT
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
             # if event.mod & pygame.KMOD_LCTRL:
             #     player.vector = player.vector + 2 * VEC_RIGHT
             # else:
             player.vector = player.vector + 1 * VEC_RIGHT
         if event.type == pygame.KEYUP and event.key == pygame.K_d:
-            player.vector = player.vector - 1 * VEC_RIGHT 
-        
+            player.vector = player.vector - 1 * VEC_RIGHT
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
             # if event.mod & pygame.KMOD_LCTRL:
             #     player.vector = player.vector + 2 * VEC_UP
             # else:
             player.vector = player.vector + 1.25 * VEC_UP
         if event.type == pygame.KEYUP and event.key == pygame.K_w:
-            player.vector = player.vector - 1.25 * VEC_UP       
+            player.vector = player.vector - 1.25 * VEC_UP
         if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
             # if event.mod & pygame.KMOD_LCTRL:
             #     player.vector = player.vector + 2 * VEC_DOWN
             # else:
             player.vector = player.vector + 1.25 * VEC_DOWN
         if event.type == pygame.KEYUP and event.key == pygame.K_s:
-            player.vector = player.vector - 1.25 * VEC_DOWN 
-        
+            player.vector = player.vector - 1.25 * VEC_DOWN
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_LCTRL:
             #player.speed = player.speed * 2
-            #if game.player_down:
+            # if game.player_down:
             #    game.player_down = 2
-            #if game.player_up:
+            # if game.player_up:
             #    game.player_up = 2
-            #if game.player_left:
+            # if game.player_left:
             #    game.player_left = 2
-            #if game.player_right:
+            # if game.player_right:
             #    game.player_right = 2
             pass
         if event.type == pygame.KEYUP and event.key == pygame.K_LCTRL:
@@ -106,18 +103,16 @@ def handleEvents():
             # if game.player_right:
             #     game.player_right = 1
             pass
-                
-            
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            pass            
 
-    
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            pass
+
     return True
 
 
 game = GameState()
 
-#os.environ['SDL_VIDEO_WINDOW_POS']="%d,%d" % (-2560+200,100)
+#os.environ['SDL_VIDEO_WINDOW_POS']='%d,%d' % (-2560+200,100)
 pygame.init()
 
 fps = 120
@@ -126,15 +121,16 @@ H = 480
 W = 640
 pygame.display.init()
 canvas = pygame.display.set_mode([W, H])
-pygame.display.set_caption("Space Shooter 1")
+pygame.display.set_caption('Space Shooter 1')
 
-FONT = pygame.font.SysFont("Arial", 18)
+FONT = pygame.font.SysFont('Arial', 18)
+
 
 def update_fps():
-    global CLOCK
     fps = str(int(CLOCK.get_fps()))
-    fps_text = FONT.render(fps, 1, pygame.Color("coral"))
-    return fps_text        
+    fps_text = FONT.render(fps, 1, pygame.Color('coral'))
+    return fps_text
+
 
 #bkgd = Layer()
 bkgdLayer = Layer()
@@ -160,18 +156,14 @@ player.animate = True
 player.loop = True
 
 
-
-
-#bkgd = pygame.transform.scale(bkgd,(bkgd.get_rect().width*2, bkgd.get_rect().height*2))
 ship_hw = player.width/2
 canvas_hw = W/2
 stars_hw = stars.width/2
 stars_delta = canvas_hw - stars_hw
 stars_x = stars_delta
 ship_center = canvas_hw-ship_hw
-player.pos = Point(ship_center,400)
+player.pos = Point(ship_center, 400)
 player.angle = DIR_UP
-#game.player_pos = Point(ship_center,400)
 
 meteors = MeteorShower(H, W, filelist=level['meteorshower'], target=player)
 
@@ -183,7 +175,7 @@ boss.target(player.pos.x, player.pos.y)
 
 ship_hit = Entity()
 ship_hit.loadGroup(gamedata['actions']['ShipHit'])
-#ship_hit.load('resources/HUD/remove-score.png')
+# ship_hit.load('resources/HUD/remove-score.png')
 ship_hit.speed = 0
 ship_hit.display = False
 ship_hit.animate = True
@@ -204,20 +196,21 @@ healthbar.y = 5
 
 hit = pygame.mixer.Sound('resources/Music/hit.wav')
 pygame.mixer.music.load('resources/Music/1.ogg')
-#pygame.mixer.music.play(-1,0.0)
+# pygame.mixer.music.play(-1,0.0)
 point = 10
 rest = False
-#code.interact(local=locals()) # debugging tool....
+# code.interact(local=locals()) # debugging tool....
 while handleEvents():
-   
-    bkgdLayer["LevelSpace"].update()
-    bkgdLayer["stars"].x = 0.25* (canvas_hw-player.x+ship_hw) + stars_delta
-    bkgdLayer["stars"].update(dy = 1.25 + (-0.25 * game.player_up) + (0.25 * game.player_down))
+
+    bkgdLayer['LevelSpace'].update()
+    bkgdLayer['stars'].x = 0.25 * (canvas_hw-player.x+ship_hw) + stars_delta
+    bkgdLayer['stars'].update(
+        dy=1.25 + (-0.25 * game.player_up) + (0.25 * game.player_down))
     bkgdLayer.draw(canvas)
 
     meteors.update()
     meteors.draw(canvas)
-    meteors.retarget(player)    
+    meteors.retarget(player)
 
     if boss.tick % 120 == 0:
         #ship.target(player.pos.x + ship_hw, player.pos.y)
@@ -226,9 +219,9 @@ while handleEvents():
     boss.update()
     boss.draw(canvas)
 
-    canvas.blit(update_fps(),(5, 5))
+    canvas.blit(update_fps(), (5, 5))
     if not ship_explode.display:
-    
+
         player.update()
         player.draw(canvas)
         player.index += 1
@@ -250,21 +243,21 @@ while handleEvents():
                 ship_explode.animate = True
                 ship_explode.center = player.center
                 point = 10
-    else:    
+    else:
         ship_explode.update()
         ship_explode.draw(canvas)
-    
-    
-    healthbar.update()   
+
+    healthbar.update()
     canvas.blit(healthbar.current, healthbar.pos)
     hbrect = healthbar.next.get_rect()
     hbrect.width = hbrect.width * (1/10) * point
     #print(hbrect,  healthbar.next.get_rect())
-    canvas.blit(healthbar.next.subsurface(hbrect), hbrect.move(healthbar.x+10,healthbar.y+6))
-    
-    pygame.display.flip() 
+    canvas.blit(healthbar.next.subsurface(hbrect),
+                hbrect.move(healthbar.x+10, healthbar.y+6))
+
+    pygame.display.flip()
     CLOCK.tick(fps)
- 
-    
+
+
 pygame.mixer.music.stop()
 pygame.display.quit()
