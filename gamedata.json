@@ -1,27 +1,25 @@
 {
     "player": {
         "ShipFly": [
-            "resources/Ship/CustomShip2.png",
-            "resources/Ship/CustomShip3.png"
-        ]
+            "resources/Ship/CustomShip-ani1.png",
+            "resources/Ship/CustomShip-ani2.png"
+        ],
+        "HealthDisplay": "resources/HUD/HealthBar.png",
+        "HealthBar": "resources/HUD/HealthBarColor.png",        
+        "hit": "resources/Music/hit.wav"
     },
     "level1": {
         "backgrounds": [
-            "resources/Background/1.png",
-            "resources/Background/2.png",
-            "resources/Background/3.png",
-            "resources/Background/4.png",
-            "resources/Background/5.png",
-            "resources/Background/5.png",
-            "resources/Background/4.png"
+            "resources/Background/CustomSpace1.png",
+            "resources/Background/CustomSpace2.png"
         ],
         "stars": [
             "resources/Background/stars.png"
         ],
         "meteorshower": [
-            "resources/Background/Meteor1.png",
-            "resources/Background/Meteor1.png",
-            "resources/Background/Meteor1.png",
+            "resources/Background/CustomMeteor1.png",
+            "resources/Background/CustomMeteor1.png",
+            "resources/Background/CustomMeteor1.png",
             "resources/Background/Meteor2.png",
             "resources/Background/Meteor2.png",
             "resources/Background/Meteor2.png"
@@ -29,7 +27,8 @@
         ],
         "Enemies": {
             "Boss": ["resources/Ship/1.png"]
-        }
+        },
+        "LevelMusic": "resources/Music/ExperimentX2.wav"
     },
     "actions": {
         "ShipHit": [

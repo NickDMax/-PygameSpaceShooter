@@ -12,7 +12,7 @@ import math
 import json
 
 
-random.seed(time.time)
+random.seed(time.time())
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -20,10 +20,10 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-DIR_RIGHT = math.pi/2
-DIR_UP = 0
-DIR_LEFT = math.pi
-DIR_DOWN = 0.75 * math.pi
+ANGLE_RIGHT = math.pi/2
+ANGLE_UP = 0
+ANGLE_LEFT = math.pi
+ANGLE_DOWN = 0.75 * math.pi
 
 VEC_RIGHT = Vector2(1, 0)
 VEC_UP = Vector2(0, -1)
@@ -31,7 +31,7 @@ VEC_LEFT = Vector2(-1, 0)
 VEC_DOWN = Vector2(0, 1)
 
 
-def getGameData(datafile: str):
+def load_json_data(datafile: str):
     try:
         f = open(datafile,)
         data = json.load(f)
@@ -42,7 +42,6 @@ def getGameData(datafile: str):
 
 def handleEvents():
     for event in pygame.event.get():
-        # print(pygame.event.event_name(event.type))
         if event.type == pygame.QUIT or \
             event.type == pygame.KEYDOWN and \
             ((event.key == pygame.K_q and event.mod & pygame.KMOD_ALT) or
@@ -135,7 +134,7 @@ def update_fps():
 #bkgd = Layer()
 bkgdLayer = Layer()
 
-gamedata = getGameData('gamedata.json')
+gamedata = load_json_data('gamedata.json')
 level = gamedata['level1']
 
 bkgd = Background(H, W)
@@ -163,7 +162,7 @@ stars_delta = canvas_hw - stars_hw
 stars_x = stars_delta
 ship_center = canvas_hw-ship_hw
 player.pos = Point(ship_center, 400)
-player.angle = DIR_UP
+player.angle = ANGLE_UP
 
 meteors = MeteorShower(H, W, filelist=level['meteorshower'], target=player)
 
@@ -175,7 +174,6 @@ boss.target(player.pos.x, player.pos.y)
 
 ship_hit = Entity()
 ship_hit.loadGroup(gamedata['actions']['ShipHit'])
-# ship_hit.load('resources/HUD/remove-score.png')
 ship_hit.speed = 0
 ship_hit.display = False
 ship_hit.animate = True
@@ -188,18 +186,17 @@ ship_explode.animate = True
 ship_explode.loop = False
 
 healthbar = Entity()
-healthbar.load('resources/HUD/HealthBar.png')
-healthbar.load('resources/HUD/HealthBarColor.png')
+healthbar.load(gamedata['player']['HealthDisplay'])
+healthbar.load(gamedata['player']['HealthBar'])
 healthbar.x = 30
 healthbar.y = 5
 
 
-hit = pygame.mixer.Sound('resources/Music/hit.wav')
-pygame.mixer.music.load('resources/Music/1.ogg')
-# pygame.mixer.music.play(-1,0.0)
+hit = pygame.mixer.Sound(gamedata['player']['hit'])
+pygame.mixer.music.load(level['LevelMusic'])
+pygame.mixer.music.play(-1,0.0)
 point = 10
 rest = False
-# code.interact(local=locals()) # debugging tool....
 while handleEvents():
 
     bkgdLayer['LevelSpace'].update()
